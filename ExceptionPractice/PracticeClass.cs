@@ -22,7 +22,7 @@ public class PracticeClass
         }
         catch(Exception ex)
         {
-            Console.WriteLine($"An exception was thrown: {ex.Message}");
+            Console.WriteLine($"LOG: An exception was thrown: {ex.Message}");
         }
     }
 
@@ -34,7 +34,38 @@ public class PracticeClass
         }
         catch(Exception ex)
         {
-            Console.WriteLine($"Inner method threw an exception, but it was caught");
+            Console.WriteLine($"LOG: Inner method threw an exception, but it was caught");
         }
+    }
+
+    public static void catchAndRethrow()
+    {
+        try
+        {
+            exceptionMethod();
+        }
+        catch(Exception ex)
+        {
+            Console.WriteLine("LOG: An exception was thrown, logging and rethrow");
+            throw;
+        }
+    }
+
+    public static void doubleThrowTest()
+    {
+        try
+        {
+            catchAndRethrow();
+        }
+        catch(Exception ex)
+        {
+            Console.WriteLine("LOG: Exception caught by the outer method");
+        }
+        finally 
+        {
+            Console.WriteLine("Made it to the finally code");
+        }
+        
+        Console.WriteLine("Made it outside of the try catch block");
     }
 }
